@@ -69,13 +69,13 @@ void OpenGLPeakMeter::init(OpenGLContext& open_gl_context) {
   const char* vertex_shader = Shaders::getShader(Shaders::kGainMeterVertex);
   const char* fragment_shader = Shaders::getShader(Shaders::kGainMeterFragment);
 
-  shader_ = new OpenGLShaderProgram(open_gl_context);
+  shader_ = std::make_unique<OpenGLShaderProgram>(open_gl_context);
 
   if (shader_->addVertexShader(OpenGLHelpers::translateVertexShaderToV3(vertex_shader)) &&
       shader_->addFragmentShader(OpenGLHelpers::translateFragmentShaderToV3(fragment_shader)) &&
       shader_->link()) {
     shader_->use();
-    position_ = new OpenGLShaderProgram::Attribute(*shader_, "position");
+    position_ = std::make_unique<OpenGLShaderProgram::Attribute>(*shader_, "position");
   }
 }
 

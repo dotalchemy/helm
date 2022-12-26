@@ -39,13 +39,13 @@ UpdateMemory::~UpdateMemory() {
 JUCE_IMPLEMENT_SINGLETON(UpdateMemory)
 
 UpdateCheckSection::UpdateCheckSection(String name) : Component(name) {
-  download_button_ = new TextButton(TRANS("Download"));
+  download_button_ = std::make_unique<TextButton>(TRANS("Download"));
   download_button_->addListener(this);
-  addAndMakeVisible(download_button_);
+  addAndMakeVisible(download_button_.get());
 
-  nope_button_ = new TextButton(TRANS("Nope"));
+  nope_button_ = std::make_unique<TextButton>(TRANS("Nope"));
   nope_button_->addListener(this);
-  addAndMakeVisible(nope_button_);
+  addAndMakeVisible(nope_button_.get());
 
   if (UpdateMemory::getInstance()->shouldCheck()) {
     checkUpdate();
@@ -96,7 +96,7 @@ void UpdateCheckSection::resized() {
 }
 
 void UpdateCheckSection::buttonClicked(Button *clicked_button) {
-  if (clicked_button == download_button_)
+  if (clicked_button == download_button_.get())
     URL("http://tytel.org/helm").launchInDefaultBrowser();
   setVisible(false);
 }
@@ -107,10 +107,8 @@ void UpdateCheckSection::mouseUp(const MouseEvent &e) {
 }
 
 void UpdateCheckSection::checkUpdate() {
-  static const int TIMEOUT = 200;
   URL version_url("http://tytel.org/static/dist/helm_version.txt");
-  const ScopedPointer<InputStream> in(version_url.createInputStream(false, nullptr, nullptr,
-                                                                    "", TIMEOUT));
+  auto in = version_url.createInputStream(URL::InputStreamOptions (URL::ParameterHandling::inAddress).withConnectionTimeoutMs(200).withNumRedirectsToFollow(0));
 
   if (in == nullptr)
     return;
