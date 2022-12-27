@@ -68,7 +68,7 @@ AboutSection::AboutSection(String name) : Overlay(name) {
   size_button_small_->addListener(this);
 
   size_button_normal_ = std::make_unique<TextButton>(String("100") + "%");
-  addAndMakeVisible(size_button_normal_.get();
+  addAndMakeVisible(size_button_normal_.get());
   size_button_normal_->addListener(this);
 
   size_button_large_ = std::make_unique<TextButton>(String(100 * MULT_LARGE) + "%");

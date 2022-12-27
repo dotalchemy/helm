@@ -27,7 +27,7 @@ SynthBase::SynthBase() {
   controls_ = engine_.getControls();
 
   keyboard_state_ = std::make_unique<MidiKeyboardState>();
-  midi_manager_ = std::make_unique<MidiManager>(this, keyboard_state_, &save_info_, this);
+  midi_manager_ = std::make_unique<MidiManager>(this, keyboard_state_.get(), &save_info_, this);
 
   last_played_note_ = 0.0;
   last_num_pressed_ = 0;

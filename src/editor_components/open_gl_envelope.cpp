@@ -20,6 +20,8 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
+using namespace juce::gl;
+
 namespace {
   const float ATTACK_RANGE_PERCENT = 0.33f;
   const float DECAY_RANGE_PERCENT = 0.33f;

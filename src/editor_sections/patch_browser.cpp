@@ -85,7 +85,7 @@ PatchBrowser::PatchBrowser() : Overlay("patch_browser") {
   bank_locations.add(bank_dir);
   banks_model_->rescanFiles(bank_locations);
 
-  banks_view_ = std::make_unique<ListBox>("banks", banks_model_);
+  banks_view_ = std::make_unique<ListBox>("banks", banks_model_.get());
   banks_view_->setMultipleSelectionEnabled(false);
   banks_view_->setClickingTogglesRowSelection(true);
   banks_view_->updateContent();
@@ -94,7 +94,7 @@ PatchBrowser::PatchBrowser() : Overlay("patch_browser") {
   folders_model_ = std::make_unique<FileListBoxModel>();
   folders_model_->setListener(this);
 
-  folders_view_ = std::make_unique<ListBox>("folders", folders_model_);
+  folders_view_ = std::make_unique<ListBox>("folders", folders_model_.get());
   folders_view_->setMultipleSelectionEnabled(true);
   folders_view_->setClickingTogglesRowSelection(true);
   folders_view_->updateContent();
@@ -103,7 +103,7 @@ PatchBrowser::PatchBrowser() : Overlay("patch_browser") {
   patches_model_ = std::make_unique<FileListBoxModel>();
   patches_model_->setListener(this);
 
-  patches_view_ = std::make_unique<ListBox>("patches", patches_model_);
+  patches_view_ = std::make_unique<ListBox>("patches", patches_model_.get());
   patches_view_->updateContent();
   addAndMakeVisible(patches_view_.get());
 

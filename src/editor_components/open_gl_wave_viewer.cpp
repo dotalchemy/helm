@@ -20,6 +20,8 @@
 #include "synth_gui_interface.h"
 #include "utils.h"
 
+using namespace juce::gl;
+
 #define GRID_CELL_WIDTH 8
 #define PADDING 5.0f
 #define MARKER_WIDTH 12.0f

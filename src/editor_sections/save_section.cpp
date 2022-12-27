@@ -37,8 +37,8 @@ SaveSection::SaveSection(String name) : Overlay(name) {
   banks_model_ = std::make_unique<FileListBoxModel>();
   banks_model_->setListener(this);
   folders_model_ = std::make_unique<FileListBoxModel>();
-  banks_view_ = std::make_unique<ListBox>("banks", banks_model_);
-  folders_view_ = std::make_unique<ListBox>("folders", folders_model_);
+  banks_view_ = std::make_unique<ListBox>("banks", banks_model_.get());
+  folders_view_ = std::make_unique<ListBox>("folders", folders_model_.get());
   rescanFolders();
   banks_view_->setColour(ListBox::backgroundColourId, Colour(0xff323232));
   folders_view_->setColour(ListBox::backgroundColourId, Colour(0xff323232));
